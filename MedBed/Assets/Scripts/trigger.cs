@@ -122,7 +122,7 @@ public class trigger : MonoBehaviour
                 gm.switchtolegs();
                 //  this.gameObject.transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 2);
                 locked = true;
-                Invoke("lockedlegs", 1);
+                Invoke("lockedlegs", 2);
                 gm.countermotion = 0;
                 gm.up = false;
                 gm.down = false;
