@@ -28,16 +28,24 @@ public class GameManager : MonoBehaviour
     public bool collided;
     public Button[] buttons = new Button[10];
     public Slider slide;
+    public GameObject rightside;
+    public GameObject leftside;
     void Start()
     {
         InvokeRepeating("countermove", 0.1f, 0.1f);
         mooving = false;
         collided = false;
+        leftside.SetActive(true);
+        rightside.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
+        leftside.GetComponent<LineRenderer>().SetPosition(0, leftside.transform.position);
+        leftside.GetComponent<LineRenderer>().SetPosition(1, head.transform.position);
+        rightside.GetComponent<LineRenderer>().SetPosition(0, rightside.transform.position);
+        rightside.GetComponent<LineRenderer>().SetPosition(1, legs.transform.position);
         rotationspeed = slide.value;
         if (rotationspeed == 0)
         {
