@@ -101,13 +101,13 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if (mode == "Cycling")
+        /*if (mode == "Cycling")
         {
             foreach (Button button in buttons)
             {
                 button.GetComponent<Button>().interactable = false;
             }
-        }
+        }*/
 
 
         if (mooving && !collided)
