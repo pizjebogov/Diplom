@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         leftside.GetComponent<LineRenderer>().SetPosition(0, leftside.transform.position);
-        leftside.GetComponent<LineRenderer>().SetPosition(1, head.transform.position);
+        leftside.GetComponent<LineRenderer>().SetPosition(1, head.transform.position + new Vector3(0, 0.25f));
         rightside.GetComponent<LineRenderer>().SetPosition(0, rightside.transform.position);
-        rightside.GetComponent<LineRenderer>().SetPosition(1, legs.transform.position);
+        rightside.GetComponent<LineRenderer>().SetPosition(1, legs.transform.position + new Vector3(0,0.25f));
         rotationspeed = slide.value;
         if (rotationspeed == 0)
         {
