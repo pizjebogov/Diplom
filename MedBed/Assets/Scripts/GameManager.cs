@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     public Slider slide;
     public GameObject rightside;
     public GameObject leftside;
+    public Text general;
+    public string collisioned;
     void Start()
     {
         InvokeRepeating("countermove", 0.1f, 0.1f);
@@ -56,12 +58,45 @@ public class GameManager : MonoBehaviour
             }
         }
         //legs.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Clamp(legs.transform.localEulerAngles.z, 0, 90));
-        textforhead.text = "Head " +Math.Round( (head.transform.localEulerAngles.z>180? -(head.transform.localEulerAngles.z-360) : -head.transform.localEulerAngles.z),1) + " angles";
+       /* textforhead.text = "Head " +Math.Round( (head.transform.localEulerAngles.z>180? -(head.transform.localEulerAngles.z-360) : -head.transform.localEulerAngles.z),1) + " angles";
         textforbody.text = "Body " + Math.Round((body.transform.localEulerAngles.z > 180 ? (body.transform.localEulerAngles.z - 360) : body.transform.localEulerAngles.z)) + " angles";
         textforlegs.text = "Legs " + Math.Round((legs.transform.localEulerAngles.z > 180 ? (legs.transform.localEulerAngles.z - 360) : legs.transform.localEulerAngles.z)) + " angles";
-        textforspine.text = "Spine " + Math.Round((spine.transform.localEulerAngles.z > 180 ? (spine.transform.localEulerAngles.z - 360) : spine.transform.localEulerAngles.z)) + " angles";
+        textforspine.text = "Spine " + Math.Round((spine.transform.localEulerAngles.z > 180 ? (spine.transform.localEulerAngles.z - 360) : spine.transform.localEulerAngles.z)) + " angles";*/
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        if(Physics.Raycast(ray,out hit))
+        {
+            if (Input.GetMouseButton(0))
+            {
+                switch (hit.transform.gameObject.tag)
+                {
+                    case ("head"):
+                        general.text = "Name:Head\n" + "Local Coordinates:" + Math.Round((head.transform.localEulerAngles.z > 180 ? -(head.transform.localEulerAngles.z - 360) : -head.transform.localEulerAngles.z), 1);
+                        break;
+                    case ("body"):
+                        general.text = "Name:Body\n" +"Local Coordinates:" + Math.Round((body.transform.localEulerAngles.z > 180 ? (body.transform.localEulerAngles.z - 360) : body.transform.localEulerAngles.z));
+                        break;
+                    case ("legs"):
+                        general.text = "Name:Legs\n" +  "Local Coordinates:" + Math.Round((legs.transform.localEulerAngles.z > 180 ? (legs.transform.localEulerAngles.z - 360) : legs.transform.localEulerAngles.z));
+                        break;
+                    case ("spine"):
+                        general.text = "Name:Spine\n" + "Local Coordinates:" + Math.Round((spine.transform.localEulerAngles.z > 180 ? (spine.transform.localEulerAngles.z - 360) : spine.transform.localEulerAngles.z));
+                        break;
+                }
+            }
+            else
+            {
+                general.text = "Speed:" + Math.Round(rotationspeed / 10, 1) + "\n" + "Current Mode:" + mode + "\n" + collisioned;
+            }
+        }
+        else
+        {
+            general.text = "Speed:" + Math.Round(rotationspeed / 10, 1) + "\n" + "Current Mode:" + mode + "\n" + collisioned; 
+        }
+
+
+
+
 
         if (mooving && !collided)
         {

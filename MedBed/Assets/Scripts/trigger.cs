@@ -10,6 +10,7 @@ public class trigger : MonoBehaviour
     public Button[] buttons = new Button[6];
     public GameManager gm;
     public bool locked = false;
+    
     void Start()
     {
 
@@ -37,6 +38,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[5].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Maximum Spine Limit";
                 
             }
             else if (other.gameObject.tag == "stopspinedown")
@@ -50,6 +52,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[1].GetComponent<Button>().interactable = true;
                 buttons[5].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Maximum Spine Limit";
 
             }
         }
@@ -65,6 +68,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[1].GetComponent<Button>().interactable = true;
                 buttons[2].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Maximum Head Limit";
             }
             else if (other.gameObject.tag == "spine")
             {
@@ -76,6 +80,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[5].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Collision between Spine and Head";
             }
 
         }
@@ -91,6 +96,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[4].GetComponent<Button>().interactable = true;
                 buttons[1].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Maximum Legs Limit";
 
             }
             else if (other.gameObject.tag == "stoplegsdown")
@@ -103,6 +109,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[4].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Maximum Legs Limit";
             }
             else if (other.gameObject.tag == "spine")
             {
@@ -115,7 +122,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[4].GetComponent<Button>().interactable = true;
-
+                gm.collisioned = "Collision between Spine and Legs";
             }
             else if (other.gameObject.tag == "body")
             {
@@ -129,6 +136,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[4].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Collision between Body and Legs";
             }
         }
         if (this.gameObject.tag == "body")
@@ -143,6 +151,7 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[1].GetComponent<Button>().interactable = true;
                 buttons[3].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Collision between Head and Body";
             }
 
             if (other.gameObject.tag == "spine")
@@ -157,13 +166,11 @@ public class trigger : MonoBehaviour
                 gm.collided = true;
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[3].GetComponent<Button>().interactable = true;
+                gm.collisioned = "Collision between Spine and Body";
 
             }
         }
-        if (this.gameObject.tag == "stophead" && other.gameObject.tag == "stopbody")
-        {
-
-        }
+        
 
 
     }
@@ -307,12 +314,14 @@ public class trigger : MonoBehaviour
             gm.collided = false;
         }
         locked = false;
+        gm.collisioned = null;
     }
     public void lockedlegs()
     {
         if (locked)
         {
-            gm.legs.transform.RotateAround(gm.anchorbodylegs.transform.position, Vector3.forward,2.5f);
+            gm.legs.transform.RotateAround(gm.anchorbodylegs.transform.position, Vector3.forward,gm.rotationspeed/10);
+            
         }
     }
 }
