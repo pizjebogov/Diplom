@@ -580,13 +580,13 @@ public class GameManager : MonoBehaviour
             else if (forinf <= 60 && forinf > 30)
             {
                 body.transform.RotateAround(anchorheadbody.transform.position, Vector3.back, rotationspeed / 20);
-               // legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward, rotationspeed / 10);
+                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward, rotationspeed / 10);
                 forinf -= rotationspeed / 20;
             }
             else if (forinf <= 30 && forinf > 10)
             {
-                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward,  rotationspeed / 20);
-                forinf -= rotationspeed/10 ;
+                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.back,  rotationspeed / 20);
+                forinf -= rotationspeed/50 ;
             }
             else if (forinf <= 10 && forinf > 0)
             {
