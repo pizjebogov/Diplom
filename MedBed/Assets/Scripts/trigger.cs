@@ -222,7 +222,7 @@ public class trigger : MonoBehaviour
                 buttons[3].GetComponent<Button>().interactable = false;
                 buttons[5].GetComponent<Button>().interactable = false;
 
-                buttons[4].GetComponent<Button>().interactable = false;
+                buttons[4].GetComponent<Button>().interactable = true;
                 this.gameObject.transform.position = startrposition;
                 this.gameObject.transform.rotation = startrotation;
                 gm.down = false;

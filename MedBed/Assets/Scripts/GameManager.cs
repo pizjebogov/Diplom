@@ -39,6 +39,13 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         rotationspeed = slide.value;
+        if (rotationspeed == 0)
+        {
+            foreach (Button button in buttons)
+            {
+                button.GetComponent<Button>().interactable = true;
+            }
+        }
         //legs.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Clamp(legs.transform.localEulerAngles.z, 0, 90));
         textforhead.text = "Head " +Math.Round( (head.transform.localEulerAngles.z>180? -(head.transform.localEulerAngles.z-360) : -head.transform.localEulerAngles.z),1) + " angles";
         textforbody.text = "Body " + Math.Round((body.transform.localEulerAngles.z > 180 ? (body.transform.localEulerAngles.z - 360) : body.transform.localEulerAngles.z)) + " angles";
