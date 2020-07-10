@@ -9,6 +9,7 @@ public class trigger : MonoBehaviour
     public Vector3 startrposition;
     public Button[] buttons = new Button[6];
     public GameManager gm;
+    public bool locked = false;
     void Start()
     {
 
@@ -115,6 +116,19 @@ public class trigger : MonoBehaviour
                 buttons[0].GetComponent<Button>().interactable = true;
                 buttons[4].GetComponent<Button>().interactable = true;
 
+            }
+            else if (other.gameObject.tag == "body")
+            {
+                gm.switchtolegs();
+                //  this.gameObject.transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z - 2);
+                locked = true;
+                Invoke("lockedlegs", 1);
+                gm.countermotion = 0;
+                gm.up = false;
+                gm.down = false;
+                gm.collided = true;
+                buttons[0].GetComponent<Button>().interactable = true;
+                buttons[4].GetComponent<Button>().interactable = true;
             }
         }
         if (this.gameObject.tag == "body")
@@ -239,6 +253,19 @@ public class trigger : MonoBehaviour
                 this.gameObject.transform.rotation = startrotation;
                 gm.down = false;
             }
+            else if (other.gameObject.tag == "body")
+            {
+                //  gm.switchtolegs();
+                buttons[1].GetComponent<Button>().interactable = true;
+                buttons[2].GetComponent<Button>().interactable = false;
+                buttons[3].GetComponent<Button>().interactable = false;
+                buttons[5].GetComponent<Button>().interactable = false;
+
+                buttons[4].GetComponent<Button>().interactable = true;
+                this.gameObject.transform.position = startrposition;
+                this.gameObject.transform.rotation = startrotation;
+                gm.down = false;
+            }
         }
         if(this.gameObject.tag=="body")
         {
@@ -278,6 +305,14 @@ public class trigger : MonoBehaviour
             button.GetComponent<Button>().interactable = true;
 
             gm.collided = false;
+        }
+        locked = false;
+    }
+    public void lockedlegs()
+    {
+        if (locked)
+        {
+            gm.legs.transform.RotateAround(gm.anchorbodylegs.transform.position, Vector3.forward,5);
         }
     }
 }

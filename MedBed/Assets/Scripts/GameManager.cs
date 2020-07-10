@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (Button button in buttons)
             {
+                countermotion = 0;
                 button.GetComponent<Button>().interactable = true;
             }
         }
