@@ -312,7 +312,7 @@ public class trigger : MonoBehaviour
     {
         if (locked)
         {
-            gm.legs.transform.RotateAround(gm.anchorbodylegs.transform.position, Vector3.forward,5);
+            gm.legs.transform.RotateAround(gm.anchorbodylegs.transform.position, Vector3.forward,2.5f);
         }
     }
 }
