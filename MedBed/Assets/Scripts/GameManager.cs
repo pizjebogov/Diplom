@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,13 +33,18 @@ public class GameManager : MonoBehaviour
     public GameObject leftside;
     public Text general;
     public string collisioned;
+    public float forinf;
+    public bool cycling;
+    public Button cyclebut;
     void Start()
     {
         InvokeRepeating("countermove", 0.1f, 0.1f);
+        InvokeRepeating("infinitycycle", 0.1f, 0.1f);
         mooving = false;
         collided = false;
         leftside.SetActive(true);
         rightside.SetActive(true);
+        cyclebut.GetComponent<Image>().color = Color.green;
     }
 
     // Update is called once per frame
@@ -95,13 +101,20 @@ public class GameManager : MonoBehaviour
         }
 
 
-
+        if (mode == "Cycling")
+        {
+            foreach (Button button in buttons)
+            {
+                button.GetComponent<Button>().interactable = false;
+            }
+        }
 
 
         if (mooving && !collided)
         {
             switch (mode)
             {
+                
                 case "head": 
                 foreach(Button button in buttons)
                     {
@@ -130,6 +143,7 @@ public class GameManager : MonoBehaviour
                     }
                     buttons[5].GetComponent<Button>().interactable = true;
                     break;
+
             }
         }
         else if(!mooving && !collided)
@@ -522,6 +536,88 @@ public class GameManager : MonoBehaviour
         else if(countermotion<= rotationspeed / 20 || countermotion>=-rotationspeed / 20)
         {
             mooving = false;
+        }
+
+        
+    }
+    public void infinitycycle()
+    {
+        if (cycling) {
+            if(forinf>170 && forinf <= 200)
+            {
+                head.transform.RotateAround(anchorheadbody.transform.position, Vector3.back, rotationspeed / 20);
+                forinf -= rotationspeed / 60;
+            }
+            else if (forinf<=170 && forinf > 160)
+            {
+                forinf -= 0.1f;
+            }
+            else if( forinf<=160 &&forinf>130)
+            {
+                body.transform.RotateAround(anchorheadbody.transform.position, Vector3.forward, rotationspeed / 20);
+                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.back, rotationspeed / 10);
+                forinf -= rotationspeed / 20;
+            }
+            else if(forinf<=130 && forinf > 110)
+            {
+                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward, rotationspeed / 20);
+                forinf -= rotationspeed / 50;
+            }
+            else if (forinf <= 110 && forinf > 100)
+            {
+                forinf -= 0.1f;
+            }
+            else if (forinf <= 100 && forinf > 90)
+            {
+                spine.transform.eulerAngles += new Vector3(0, 0, rotationspeed / 20);
+                forinf -= rotationspeed / 20;
+            }
+            else if (forinf > 60 && forinf <= 90)
+            {
+                head.transform.RotateAround(anchorheadbody.transform.position, Vector3.forward, rotationspeed / 20);
+                forinf -= rotationspeed / 20;
+            }
+            else if (forinf <= 60 && forinf > 30)
+            {
+                body.transform.RotateAround(anchorheadbody.transform.position, Vector3.back, rotationspeed / 20);
+               // legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward, rotationspeed / 10);
+                forinf -= rotationspeed / 20;
+            }
+            else if (forinf <= 30 && forinf > 10)
+            {
+                legs.transform.RotateAround(anchorbodylegs.transform.position, Vector3.forward,  rotationspeed / 20);
+                forinf -= rotationspeed/10 ;
+            }
+            else if (forinf <= 10 && forinf > 0)
+            {
+                spine.transform.eulerAngles -= new Vector3(0, 0, rotationspeed / 20);
+                forinf -= rotationspeed / 20;
+            }
+            else if (forinf <= 0)
+            {
+                forinf = 180;
+            }
+        }
+        else
+        {
+            forinf = 0;
+        }
+    }
+    public void letcyclebegin()
+    {
+        if (cycling)
+        {
+            cycling = false;
+            cyclebut.GetComponent<Image>().color = Color.green;
+            mode = null;
+            mooving = false;
+        }
+        else
+        {
+            cycling = true;
+            cyclebut.GetComponent<Image>().color = Color.red;
+            mode = "Cycling";
+            mooving = true;
         }
     }
 }
